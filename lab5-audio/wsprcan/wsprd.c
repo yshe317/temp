@@ -184,18 +184,7 @@ unsigned long readwavfile(char *ptr_to_infile, int ntrmin, double *idat, double 
     if(buf2==NULL){
         return 1;
     }
-    /*
-    fp = fopen(ptr_to_infile,"rb");
-    if (fp == NULL) {
-        fprintf(stderr, "Cannot open data file '%s'\n", ptr_to_infile);
-        return 1;
-    }
-    nr=fread(buf2,2,22,fp);            //Read and ignore header
-    nr=fread(buf2,2,npoints,fp);       //Read raw data
-
-    fclose(fp);
-    */
-
+    
     if (!(s = pa_simple_new(NULL, "wspr", PA_STREAM_RECORD, NULL, "record", &xss, NULL, NULL, &error))) {
         fprintf(stderr, __FILE__": pa_simple_new() failed: %s\n", pa_strerror(error));
     }
@@ -203,14 +192,13 @@ unsigned long readwavfile(char *ptr_to_infile, int ntrmin, double *idat, double 
     if (pa_simple_read(s, buf2, npoints * 2, &error) < 0) {
         fprintf(stderr, __FILE__": pa_simple_read() failed: %s\n", pa_strerror(error));
         }
-    /////////////////////////////////////
-    nr = npoints;
-    if(nr!=npoints){
-        printf("Failed to read data file\n");
-        printf("requested: %lu got: %lu\n",npoints,nr);
-        return 1;
-    }
 
+
+
+
+
+
+    nr = npoints;
     if(nr!=npoints){
         printf("Failed to read data file\n");
         printf("requested: %lu got: %lu\n",npoints,nr);
