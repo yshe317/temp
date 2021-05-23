@@ -7,7 +7,7 @@ LIBS = -lfftw3 -lm -lpulse-simple -lpulse -lgpiod
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-all:    k9an-wsprd wsprsim
+all:    k9an-wsprd wsprsim run
 
 DEPS =  wsprsim_utils.h wsprd_utils.h fano.h jelinek.h
 
@@ -18,6 +18,9 @@ wsprsim: $(OBJS2)
 OBJS3 = wsprd.o wsprsim_utils.o wsprd_utils.o tab.o fano.o jelinek.o nhash.o
 k9an-wsprd: $(OBJS3)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS) $(LIBS)
+
+run:
+	./k9an-wsprd
 
 clean:
 	-rm *.o k9an-wsprd wsprsim
